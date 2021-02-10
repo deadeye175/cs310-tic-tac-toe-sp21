@@ -5,7 +5,7 @@ import java.util.Scanner;
 /**
 * TicTacToeView implements a console-based View for the Tic-Tac-Toe game.
 *
-* @author  Your Name
+* @author  Adam Parker
 * @version 1.0
 */
 public class TicTacToeView {
@@ -39,9 +39,17 @@ public class TicTacToeView {
     */
     public TicTacToeMove getNextMove(boolean isXTurn) {
         
-        // INSERT YOUR CODE HERE (refer to the example output on Canvas!)
-        
-        return null; // this is a stub; you should remove it later!
+        if(isXTurn == true){
+            System.out.println("Enter the row and column numbers, separated by a space, X: ");
+        } else {
+            System.out.println("Enter the row and column numbers, separated by a space, O: ");
+        }
+        String move = keyboard.nextLine();
+        String[] movearray = move.split(" ");
+        int moverow = Integer.parseInt(movearray[0]);
+        int movecolumn = Integer.parseInt(movearray[1]);
+        TicTacToeMove nextmove = new TicTacToeMove(moverow, movecolumn);
+        return nextmove;
 
     }
     
