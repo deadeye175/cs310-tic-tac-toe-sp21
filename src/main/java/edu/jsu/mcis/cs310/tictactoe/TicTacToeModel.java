@@ -77,8 +77,8 @@ public class TicTacToeModel {
         
         boolean valid = isValidSquare(row, col);
         boolean marked = isSquareMarked(row, col);
-        if(valid == true && marked == false){
-            if(xTurn == true){
+        if(valid && !marked){
+            if(xTurn){
                 board[row][col] = TicTacToeSquare.X;
                 xTurn = false;
             } else {
@@ -105,7 +105,7 @@ public class TicTacToeModel {
         
         if(row < dimension && row >= 0){
             if(col < dimension && col >= 0){
-                return true;
+                    return true;
             } else {
                 return false;
             }
@@ -123,7 +123,10 @@ public class TicTacToeModel {
     * if it is not
     */
     private boolean isSquareMarked(int row, int col) {
-                
+        
+        if(!isValidSquare(row, col)){
+            return true;
+        }
         if(board[row][col] == TicTacToeSquare.EMPTY){
             return false;
         } else {
@@ -166,11 +169,11 @@ public class TicTacToeModel {
         boolean xwin = isMarkWin(TicTacToeSquare.X);
         boolean owin = isMarkWin(TicTacToeSquare.O);
         boolean tiebetween = isTie();
-        if(xwin == true){
+        if(xwin){
             return TicTacToeState.X;
-        } else if(owin == true){
+        } else if(owin){
             return TicTacToeState.O;
-        } else if(tiebetween == true){
+        } else if(tiebetween){
             return TicTacToeState.TIE;
         } else {
             return TicTacToeState.NONE;
@@ -195,7 +198,7 @@ public class TicTacToeModel {
                 numofmark++;
             }
         }
-        if(numofmark == dimension - 1){
+        if(numofmark == dimension){
             markwon = true;
         }
         numofmark = 0;
@@ -206,7 +209,7 @@ public class TicTacToeModel {
             }
             dim--;
         }
-        if(numofmark == dimension - 1){
+        if(numofmark == dimension){
             markwon = true;
         }
         for(int i = 0; i < dimension; i++){
@@ -215,7 +218,7 @@ public class TicTacToeModel {
                 if(board[i][j] == mark){
                     numofmark++;
                 }
-                if(numofmark == dimension - 1){
+                if(numofmark == dimension){
                     markwon = true;
                 }
             }
@@ -226,15 +229,15 @@ public class TicTacToeModel {
                 if(board[j][i] == mark){
                     numofmark++;
                 }
-                if(numofmark == dimension - 1){
+                if(numofmark == dimension){
                     markwon = true;
                 }
             }
         }
-        if(markwon = false){
-            return false;
-        } else {
+        if(markwon){
             return true;
+        } else {
+            return false;
         }
         
     }
@@ -254,10 +257,10 @@ public class TicTacToeModel {
                 }
             }
         }
-        if(tie == false){
-            return false;
-        } else {
+        if(tie){
             return true;
+        } else {
+            return false;
         }
     }
 
@@ -316,10 +319,8 @@ public class TicTacToeModel {
         output.append("  ");
         for(int i = 0; i < dimension; i++){
             output.append(i);
-            if(i == dimension - 1){
-                output.append("\n");
-            }
         }
+        output.append("\n");
         for(int j = 0; j < dimension; j++){
             output.append(j + " ");
             for(int k = 0; k < dimension; k++){
@@ -329,6 +330,8 @@ public class TicTacToeModel {
                 output.append("\n");
             }
         }
+        output.append("\n");
+        output.append("\n");
         
         return output.toString();
         
